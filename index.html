@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Жарқын Көлік Сайты</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: linear-gradient(to right, #7f00ff, #e100ff);
+      min-height: 100vh;
+      color: #fff;
+    }
+
+    header {  
+      background: rgba(255, 255, 255, 0.1);
+      padding: 50px 20px;
+      text-align: center;
+      backdrop-filter: blur(6px);
+    }
+
+    header h1 {
+      font-size: 36px;
+      color: #fff;
+      animation: fadeInDown 1s ease;
+    }
+
+    header p {
+      margin-top: 10px;
+      font-size: 18px;
+      color: #ffd6ff;
+    }
+
+    section {
+      max-width: 1100px;
+      margin: 40px auto;
+      padding: 30px;
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 15px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 30px;
+      color: #fff;
+    }
+
+    .filter {
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    #car-filter {
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+    }
+
+    .car {
+      background: #fff;
+      color: #333;
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 30px;
+      transition: transform 0.3s, box-shadow 0.3s;
+      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.2);
+    }
+
+    .car:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 20px rgba(0, 0, 0, 0.25);
+    }
+
+    .car img {
+      width: 100%;
+      border-radius: 8px;
+      margin-bottom: 15px;
+    }
+
+    .car h3 {
+      margin: 0;
+      color: #7f00ff;
+    }
+
+    .btn {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 10px 20px;
+      background: linear-gradient(to right, #ff6a00, #ee0979);
+      color: #fff;
+      text-decoration: none;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: transform 0.2s, background 0.3s;
+    }
+
+    .btn:hover {
+      transform: scale(1.05);
+      background: linear-gradient(to right, #ee0979, #ff6a00);
+    }
+
+    .details {
+      display: none;
+      margin-top: 15px;
+      background: #f2f2f2;
+      padding: 15px;
+      border-radius: 8px;
+      animation: fadeIn 0.5s ease;
+      color: #000;
+    }
+
+    .credit-calculator {
+      margin-top: 15px;
+      background: #f2f2f2;
+      padding: 20px;
+      border-radius: 8px;
+      display: none;
+    }
+
+    .credit-calculator input {
+      padding: 10px;
+      margin-bottom: 10px;
+      width: 100%;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    .credit-calculator button {
+      background: #7f00ff;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      cursor: pointer;
+      border-radius: 8px;
+      width: 100%;
+    }
+
+    .credit-calculator button:hover {
+      background: #e100ff;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      font-size: 14px;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(6px);
+      margin-top: 40px;
+    }
+
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Көлік Сайты</h1>
+    <p>Жаңа стиль — жарқын дизайнда!</p>
+  </header>
+
+  <section>
+    <h2>Көліктер</h2>
+
+    <div class="filter">
+      <label for="car-filter">Көлік түрін таңдаңыз:</label>
+      <select id="car-filter" onchange="filterCars()">
+        <option value="all">Барлық көліктер</option>
+        <option value="toyota">Toyota</option>
+        <option value="hyundai">Hyundai</option>
+        <option value="mercedes">Mercedes</option>
+        <option value="bmw">BMW</option>
+        <option value="audi">Audi</option>
+        <option value="ford">Ford</option>
+      </select>
+    </div>
+
+    <div id="cars-container">
+
+      <div class="car" data-brand="toyota">
+        <img src="456.jpg" alt="Toyota Camry" />
+        <h3>Toyota Camry 2020</h3>
+        <p><strong>Бағасы:</strong> 10 500 000 тг</p>
+        <p>Қара түсті, автомат, бензин</p>
+        <button class="btn" onclick="toggleDetails('camry-details')">Толығырақ</button>
+        <div id="camry-details" class="details">
+          <p><strong>Қозғалтқыш:</strong> 2.5 л, 4 цилиндр</p>
+          <p><strong>Жүріс:</strong> 45 000 км</p>
+          <p><strong>Салон:</strong> Қара былғары</p>
+          <p><strong>Қосымша:</strong> Bluetooth, Артқа камера</p>
+        </div>
+        <button class="btn" onclick="toggleCalculator('camry-calculator')">Кредитті есептеу</button>
+        <div id="camry-calculator" class="credit-calculator">
+          <label for="loan-amount">Сома (теңге):</label>
+          <input type="number" id="camry-loan-amount" value="10500000" />
+          <label for="loan-term">Мерзім (жыл):</label>
+          <input type="number" id="camry-loan-term" value="5" />
+          <button onclick="calculateLoan('camry')">Есептеу</button>
+          <p id="camry-monthly-payment"></p>
+        </div>
+      </div>
+
+      <div class="car" data-brand="hyundai">
+        <img src="4567.jpg" alt="Hyundai Sonata" />
+        <h3>Hyundai Sonata 2019</h3>
+        <p><strong>Бағасы:</strong> 8 700 000 тг</p>
+        <p>Күміс түсті, автомат, бензин</p>
+        <button class="btn" onclick="toggleDetails('sonata-details')">Толығырақ</button>
+        <div id="sonata-details" class="details">
+          <p><strong>Қозғалтқыш:</strong> 2.0 л, 4 цилиндр</p>
+          <p><strong>Жүріс:</strong> 60 000 км</p>
+          <p><strong>Салон:</strong> Мата, Сұр</p>
+          <p><strong>Қосымша:</strong> Климат бақылау, Круиз</p>
+        </div>
+        <button class="btn" onclick="toggleCalculator('sonata-calculator')">Кредитті есептеу</button>
+        <div id="sonata-calculator" class="credit-calculator">
+          <label for="loan-amount">Сома (теңге):</label>
+          <input type="number" id="sonata-loan-amount" value="8700000" />
+          <label for="loan-term">Мерзім (жыл):</label>
+          <input type="number" id="sonata-loan-term" value="5" />
+          <button onclick="calculateLoan('sonata')">Есептеу</button>
+          <p id="sonata-monthly-payment"></p>
+        </div>
+      </div>
+
+      <div class="car" data-brand="mercedes">
+        <img src="1.jpg" alt="Mercedes-Benz" />
+        <h3>Mercedes-Benz A-Class 2021</h3>
+        <p><strong>Бағасы:</strong> 18 500 000 тг</p>
+        <p>Ақ түсті, автомат, бензин</p>
+        <button class="btn" onclick="toggleDetails('mercedes-details')">Толығырақ</button>
+        <div id="mercedes-details" class="details">
+          <p><strong>Қозғалтқыш:</strong> 2.0 л, 4 цилиндр</p>
+          <p><strong>Жүріс:</strong> 30 000 км</p>
+          <p><strong>Салон:</strong> Қара былғары</p>
+          <p><strong>Қосымша:</strong> Панорамды шатыр, Навигация</p>
+        </div>
+        <button class="btn" onclick="toggleCalculator('mercedes-calculator')">Кредитті есептеу</button>
+        <div id="mercedes-calculator" class="credit-calculator">
+          <label for="loan-amount">Сома (теңге):</label>
+          <input type="number" id="mercedes-loan-amount" value="18500000" />
+          <label for="loan-term">Мерзім (жыл):</label>
+          <input type="number" id="mercedes-loan-term" value="5" />
+          <button onclick="calculateLoan('mercedes')">Есептеу</button>
+          <p id="mercedes-monthly-payment"></p>
+        </div>
+      </div>
+
+      <div class="car" data-brand="bmw">
+        <img src="2.jpg" alt="BMW 3 Series" />
+        <h3>BMW 3 Series 2022</h3>
+        <p><strong>Бағасы:</strong> 20 000 000 тг</p>
+        <p>Қара түсті, автомат, бензин</p>
+        <button class="btn" onclick="toggleDetails('bmw-details')">Толығырақ</button>
+        <div id="bmw-details" class="details">
+          <p><strong>Қозғалтқыш:</strong> 2.5 л, 6 цилиндр</p>
+          <p><strong>Жүріс:</strong> 25 000 км</p>
+          <p><strong>Салон:</strong> Қара былғары</p>
+          <p><strong>Қосымша:</strong> Кіріктірілген аудио жүйе, Қозғалтқыш жылытқышы</p>
+        </div>
+        <button class="btn" onclick="toggleCalculator('bmw-calculator')">Кредитті есептеу</button>
+        <div id="bmw-calculator" class="credit-calculator">
+          <label for="loan-amount">Сома (теңге):</label>
+          <input type="number" id="bmw-loan-amount" value="20000000" />
+          <label for="loan-term">Мерзім (жыл):</label>
+          <input type="number" id="bmw-loan-term" value="5" />
+          <button onclick="calculateLoan('bmw')">Есептеу</button>
+          <p id="bmw-monthly-payment"></p>
+        </div>
+      </div>
+
+      <div class="car" data-brand="audi">
+        <img src="3.jpeg" alt="Audi A4" />
+        <h3>Audi A4 2023</h3>
+        <p><strong>Бағасы:</strong> 22 000 000 тг</p>
+        <p>Сұр түсті, автомат, бензин</p>
+        <button class="btn" onclick="toggleDetails('audi-details')">Толығырақ</button>
+        <div id="audi-details" class="details">
+          <p><strong>Қозғалтқыш:</strong> 2.0 л, 4 цилиндр</p>
+          <p><strong>Жүріс:</strong> 10 000 км</p>
+          <p><strong>Салон:</strong> Қара былғары</p>
+          <p><strong>Қосымша:</strong> Мультимедиялық жүйе, Тұрақ көмегі</p>
+        </div>
+        <button class="btn" onclick="toggleCalculator('audi-calculator')">Кредитті есептеу</button>
+        <div id="audi-calculator" class="credit-calculator">
+          <label for="loan-amount">Сома (теңге):</label>
+          <input type="number" id="audi-loan-amount" value="22000000" />
+          <label for="loan-term">Мерзім (жыл):</label>
+          <input type="number" id="audi-loan-term" value="5" />
+          <button onclick="calculateLoan('audi')">Есептеу</button>
+          <p id="audi-monthly-payment"></p>
+        </div>
+      </div>
+
+      <div class="car" data-brand="ford">
+        <img src="4.jpg" alt="Ford Focus" />
+        <h3>Ford Focus 2021</h3>
+        <p><strong>Бағасы:</strong> 7 500 000 тг</p>
+        <p>Көк түсті, автомат, бензин</p>
+        <button class="btn" onclick="toggleDetails('ford-details')">Толығырақ</button>
+        <div id="ford-details" class="details">
+          <p><strong>Қозғалтқыш:</strong> 1.6 л, 4 цилиндр</p>
+          <p><strong>Жүріс:</strong> 40 000 км</p>
+          <p><strong>Салон:</strong> Мата, Қара</p>
+          <p><strong>Қосымша:</strong> Қосымша сенсорлар, Климат бақылау</p>
+        </div>
+        <button class="btn" onclick="toggleCalculator('ford-calculator')">Кредитті есептеу</button>
+        <div id="ford-calculator" class="credit-calculator">
+          <label for="loan-amount">Сома (теңге):</label>
+          <input type="number" id="ford-loan-amount" value="7500000" />
+          <label for="loan-term">Мерзім (жыл):</label>
+          <input type="number" id="ford-loan-term" value="5" />
+          <button onclick="calculateLoan('ford')">Есептеу</button>
+          <p id="ford-monthly-payment"></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    &copy; 2025 Жарқын Көлік Сайты. Барлық құқықтар қорғалған.
+  </footer>
+
+  <script>
+    function toggleDetails(id) {
+      const el = document.getElementById(id);
+      if (el.style.display === "block") {
+        el.style.display = "none";
+      } else {
+        el.style.display = "block";
+      }
+    }
+
+    function toggleCalculator(id) {
+      const el = document.getElementById(id);
+      if (el.style.display === "block") {
+        el.style.display = "none";
+      } else {
+        el.style.display = "block";
+      }
+    }
+
+    function calculateLoan(car) {
+      const amount = document.getElementById(`${car}-loan-amount`).value;
+      const term = document.getElementById(`${car}-loan-term`).value;
+      const rate = 0.05;  
+
+      const principal = parseFloat(amount);
+      const years = parseInt(term);
+      const monthlyRate = rate / 12;
+      const numberOfPayments = years * 12;
+
+      const monthlyPayment = (principal * monthlyRate) / (1 - Math.pow(1 + monthlyRate, -numberOfPayments));
+
+      document.getElementById(`${car}-monthly-payment`).innerText = `Айлық төлем: ${monthlyPayment.toFixed(2)} тг`;
+    }
+
+    function filterCars() {
+      const filterValue = document.getElementById('car-filter').value;
+      const cars = document.querySelectorAll('.car');
+      
+      cars.forEach(car => {
+        if (filterValue === 'all') {
+          car.style.display = 'block';
+        } else if (car.getAttribute('data-brand') === filterValue) {
+          car.style.display = 'block';
+        } else {
+          car.style.display = 'none';
+        }
+      });
+    }
+  </script>
+
+</body>
+</html>
